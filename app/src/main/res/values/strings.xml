@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CookBook</string>
+    <string name="navigation_drawer_open">Open menu</string>
+    <string name="navigation_drawer_close">Close menu</string>
+    <string name="title_groceries">Groceries</string>
+    <string name="title_planner">Planner</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_cookbook">CookBook</string>
 </resources>
