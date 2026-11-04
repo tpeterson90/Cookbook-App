@@ -8,6 +8,6 @@ public class Recipe extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipe);
+        setContentView(R.layout.fragment_recipe_detail);
     }
 }

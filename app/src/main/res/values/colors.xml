@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#42654A</color>
+    <color name="colorSecondary">#798077</color>
+    <color name="colorBackground">#F8F1D8</color>
+    <color name="colorText">#29332C</color>
+    <color name="colorBorder">#E4E5DC</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="nav_item_tint">#42654A</color>
+    <color name="drawer_item_fill">#E8F0E8</color>
 </resources>
