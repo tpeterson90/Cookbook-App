@@ -2,7 +2,7 @@ package com.example.cookbook;
 
 import android.os.Bundle;
 import android.view.View;
-
+import android.content.res.ColorStateList;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.cookbook.fragments.CookbookFragment;
 import com.example.cookbook.fragments.GroceriesFragment;
+import com.example.cookbook.fragments.MyPantryFragment;
 import com.example.cookbook.fragments.PlannerFragment;
 import com.example.cookbook.fragments.ProfileFragment;
 import com.google.android.material.appbar.AppBarLayout;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_GROCERIES = "page_groceries";
     private static final String TAG_PLANNER = "page_planner";
     private static final String TAG_PROFILE = "page_profile";
+    private static final String TAG_MY_PANTRY = "page_pantry";
 
 //    private static final String TAG_RECIPE_DETAIL = "page_recipe_detail";
 
@@ -59,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
         bottomNavigation = findViewById(R.id.bottomNavigation);
+        bottomNavigation.setItemActiveIndicatorColor(
+                ColorStateList.valueOf(getColor(R.color.nav_active_indicator))
+        );
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -102,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.fragmentContainer, new CookbookFragment(), TAG_COOKBOOK)
                     .add(R.id.fragmentContainer, new GroceriesFragment(), TAG_GROCERIES)
                     .add(R.id.fragmentContainer, new PlannerFragment(), TAG_PLANNER)
-                    .add(R.id.fragmentContainer, new ProfileFragment(), TAG_PROFILE) //Added about page
+                    .add(R.id.fragmentContainer, new MyPantryFragment(), TAG_MY_PANTRY)
+                    .add(R.id.fragmentContainer, new ProfileFragment(), TAG_PROFILE)
                     .commitNow();
         } else {
             currentPageId = savedInstanceState.getInt(KEY_CURRENT_PAGE, R.id.nav_cookbook);
@@ -124,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         String visibleTag = tagForPage(pageId);
-        for (String tag : new String[]{TAG_COOKBOOK, TAG_GROCERIES, TAG_PLANNER, TAG_PROFILE}) {
+        for (String tag : new String[]{TAG_COOKBOOK, TAG_GROCERIES, TAG_PLANNER, TAG_PROFILE, TAG_MY_PANTRY}) {
             Fragment page = fragmentManager.findFragmentByTag(tag);
             if (page == null) {
                 continue;
@@ -153,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
             return R.string.title_groceries;
         } else if (pageId == R.id.nav_planner) {
             return R.string.title_planner;
+        }else if (pageId == R.id.nav_pantry){
+            return R.string.title_pantry;
         } else if (pageId == R.id.nav_profile){
             return R.string.title_profile;
         }
@@ -165,8 +173,10 @@ public class MainActivity extends AppCompatActivity {
             return TAG_GROCERIES;
         } else if (pageId == R.id.nav_planner) {
             return TAG_PLANNER;
+        }else if (pageId == R.id.nav_pantry){
+            return TAG_MY_PANTRY;
         }else if (pageId == R.id.nav_profile){
-            return TAG_PROFILE; //Added About page
+            return TAG_PROFILE;
         }
         return TAG_COOKBOOK;
     }
