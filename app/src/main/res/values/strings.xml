@@ -7,4 +7,9 @@
     <string name="title_profile">Profile</string>
     <string name="title_cookbook">CookBook</string>
     <string name="title_pantry">My Pantry</string>
+    <string name="help_feedback"><![CDATA[Help & Feedback]]></string>
+    <string name="open">Open</string>
+    <string name="the_way_you_cook">THE WAY YOU COOK</string>
+    <string name="edit">Edit</string>
+    <string name="add_image">Add Image</string>
 </resources>

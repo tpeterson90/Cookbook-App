@@ -84,9 +84,10 @@
 
         app:bottomInsetScrimEnabled="false"
         app:headerLayout="@layout/nav_header"
-        app:insetForeground="@color/colorPrimary"
+        app:insetForeground="@color/colorBackground"
         app:itemIconTint="@color/nav_item_tint"
         app:itemShapeFillColor="@color/drawer_item_fill"
+        app:itemBackground="@color/white"
         app:itemTextColor="@color/colorPrimary"
         app:menu="@menu/menu_navigation"/>
 
