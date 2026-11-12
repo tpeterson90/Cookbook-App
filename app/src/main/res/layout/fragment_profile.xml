@@ -130,12 +130,14 @@
                 android:textColor="@color/black"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/edit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:contextClickable="true"
             android:textStyle="bold"
             android:text="@string/edit"
+            android:clickable="true"
             android:textSize="16sp"/>
     </LinearLayout>
 <!--Counter-->
@@ -243,33 +245,31 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
-        android:paddingEnd="10dp">
+        android:paddingEnd="1dp">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_people"
             android:contentDescription="People"/>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="5dp"
-            android:text="Cooking for"
+            android:text="@string/cooking_for"
             android:textSize="18sp"
             android:textColor="@color/black"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2 people"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="5dp"
-            android:src="@drawable/ic_chevron"
-            android:contentDescription="@string/open"/>
+      <Button
+          android:id="@+id/people_menu"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="2 People"
+          android:textSize="16sp"
+          android:backgroundTint="@color/colorBackground"
+          android:textColor="@color/black"/>
+
     </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -284,7 +284,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingStart="9dp"
-            android:paddingEnd="10dp">
+            android:paddingEnd="1dp">
 
             <ImageView
                 android:layout_width="24dp"
@@ -299,18 +299,15 @@
                 android:text="Dietary preferences"
                 android:textSize="18sp"
                 android:textColor="@color/black"/>
-            <TextView
+            <Button
+                android:id="@+id/dietary_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No rescrictions"
+                android:text="No Restrictions"
                 android:textSize="16sp"
+                android:backgroundTint="@color/colorBackground"
                 android:textColor="@color/black"/>
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="1dp"
-                android:src="@drawable/ic_chevron"
-                android:contentDescription="@string/open"/>
+
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -340,18 +337,14 @@
                 android:text="Measurement units"
                 android:textSize="18sp"
                 android:textColor="@color/black"/>
-            <TextView
+            <Button
+                android:id="@+id/metric_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Metric"
+                android:text="Imperial"
                 android:textSize="16sp"
+                android:backgroundTint="@color/colorBackground"
                 android:textColor="@color/black"/>
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="5dp"
-                android:src="@drawable/ic_chevron"
-                android:contentDescription="@string/open"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"

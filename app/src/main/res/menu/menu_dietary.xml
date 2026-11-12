@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/no_restrictions"
+        android:title="No Restrictions"/>
+    <item android:id="@+id/vegan"
+        android:title="Vegan"/>
+    <item android:id="@+id/vegetarian"
+        android:title="Vegetarian"/>
+    <item android:id="@+id/pescatarian"
+        android:title="Pescatarian"/>
+    <item android:id="@+id/med_diet"
+        android:title="Mediterranean Diet"/>
+    <item android:id="@+id/sodiumWise"
+        android:title="Sodium Wise"/>
+</menu>

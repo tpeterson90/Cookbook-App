@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/person"
+        android:title="1 Person"/>
+    <item android:id="@+id/twoPeople"
+        android:title="2 People"/>
+    <item android:id="@+id/threePeople"
+        android:title="3 People"/>
+    <item android:id="@+id/fourPeople"
+        android:title="4 People"/>
+    <item android:id="@+id/sixPeople"
+        android:title="6 People"/>
+    <item android:id="@+id/eightPeople"
+        android:title="8 People"/>
+</menu>
