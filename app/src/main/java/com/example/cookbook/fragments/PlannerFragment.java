@@ -12,14 +12,17 @@ import androidx.fragment.app.Fragment;
 import com.example.cookbook.R;
 
 public class PlannerFragment extends Fragment {
-    public PlannerFragment(){
 
+    public PlannerFragment() {
+        // Required empty constructor
     }
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, //Creates screen and loads XML layout
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState){
-        return inflater.inflate(R.layout.fragment_planner, container, false); //connects Java class to XML
+                             @Nullable Bundle savedInstanceState) {
+
+        return inflater.inflate(R.layout.fragment_planner, container, false);
     }
 }

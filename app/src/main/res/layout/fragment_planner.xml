@@ -1,19 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/meal_planner"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PlannerFragment">
+    android:background="#F8F8F4"
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Planner"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Meal Planner"
+            android:textColor="#29332C"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Plan your meals for the week"
+            android:textColor="#858B82"
+            android:textSize="14sp" />
+
+        <!-- Add Meal Button -->
+        <Button
+            android:id="@+id/addMealButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#426B50"
+            android:text="+ Add Meal"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <!-- Week Navigation -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="This Week"
+                android:textColor="#29332C"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/previousWeekButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:backgroundTint="#F0F0EA"
+                android:text="‹"
+                android:textColor="#426B50"
+                android:textSize="22sp" />
+
+            <Button
+                android:id="@+id/nextWeekButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="6dp"
+                android:backgroundTint="#F0F0EA"
+                android:text="›"
+                android:textColor="#426B50"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+        <!-- Week Days -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/weekDayContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/dayMonday"
+                    android:layout_width="48dp"
+                    android:layout_height="64dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#426B50"
+                    android:gravity="center"
+                    android:text="MON&#10;15"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dayTuesday"
+                    android:layout_width="48dp"
+                    android:layout_height="64dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#F0F0EA"
+                    android:gravity="center"
+                    android:text="TUE&#10;16"
+                    android:textColor="#526052"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/dayWednesday"
+                    android:layout_width="48dp"
+                    android:layout_height="64dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#F0F0EA"
+                    android:gravity="center"
+                    android:text="WED&#10;17"
+                    android:textColor="#526052"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/dayThursday"
+                    android:layout_width="48dp"
+                    android:layout_height="64dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#F0F0EA"
+                    android:gravity="center"
+                    android:text="THU&#10;18"
+                    android:textColor="#526052"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/dayFriday"
+                    android:layout_width="48dp"
+                    android:layout_height="64dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#F0F0EA"
+                    android:gravity="center"
+                    android:text="FRI&#10;19"
+                    android:textColor="#526052"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/daySaturday"
+                    android:layout_width="48dp"
+                    android:layout_height="64dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#F0F0EA"
+                    android:gravity="center"
+                    android:text="SAT&#10;20"
+                    android:textColor="#526052"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/daySunday"
+                    android:layout_width="48dp"
+                    android:layout_height="64dp"
+                    android:background="#F0F0EA"
+                    android:gravity="center"
+                    android:text="SUN&#10;21"
+                    android:textColor="#526052"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Selected Day -->
+        <TextView
+            android:id="@+id/selectedDayTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="Monday's Meals"
+            android:textColor="#29332C"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Breakfast -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="BREAKFAST"
+            android:textColor="#858B82"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/breakfastContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/breakfastMeal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No breakfast planned"
+                android:textColor="#29332C"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!-- Lunch -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="LUNCH"
+            android:textColor="#858B82"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/lunchContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/lunchMeal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No lunch planned"
+                android:textColor="#29332C"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!-- Dinner -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="DINNER"
+            android:textColor="#858B82"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/dinnerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/dinnerMeal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No dinner planned"
+                android:textColor="#29332C"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!-- Empty Message -->
+        <TextView
+            android:id="@+id/emptyMealMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="Start planning your meals!"
+            android:textColor="#858B82"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>
