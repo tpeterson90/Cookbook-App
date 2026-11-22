@@ -6,4 +6,16 @@
     <string name="title_planner">Planner</string>
     <string name="title_profile">Profile</string>
     <string name="title_cookbook">CookBook</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_subtitle">Sign in to continue to your cookbook.</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="create_account">Create Account</string>
+    <string name="create_your_account">Create Your Account</string>
+    <string name="create_account_subtitle">Create an account to save recipes, plan meals, and manage your cookbook.</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_have_account">Already have an account? Sign In</string>
 </resources>
