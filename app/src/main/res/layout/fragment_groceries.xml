@@ -3,7 +3,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/grocery_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
@@ -25,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Add anything you need while planning meals."
+        android:text="Add what you need for your next meal."
         android:textColor="@color/colorSecondary"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +36,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Add grocery item"
+        android:layout_marginEnd="14dp"
+        android:hint="Grocery item"
+        app:boxBackgroundColor="@color/white"
         app:boxBackgroundMode="outline"
         app:boxStrokeColor="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,16 +57,20 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonAddGrocery"
-        android:layout_width="56dp"
+        android:layout_width="64dp"
         android:layout_height="56dp"
-        android:layout_marginStart="10dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
         android:text="+"
-        android:textSize="26sp"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
         app:backgroundTint="@color/colorPrimary"
-        app:cornerRadius="16dp"
+        app:cornerRadius="14dp"
+        app:layout_constraintTop_toTopOf="@id/layoutGroceryInput"
         app:layout_constraintBottom_toBottomOf="@id/layoutGroceryInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/layoutGroceryInput" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressGroceries"
@@ -94,8 +99,10 @@
         android:id="@+id/recyclerGroceries"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/layoutGroceryInput"
         app:layout_constraintBottom_toTopOf="@id/buttonClearChecked"
@@ -104,7 +111,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonClearChecked"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="52dp"
         android:text="Clear Checked"
         android:textColor="@color/white"

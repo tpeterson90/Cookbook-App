@@ -22,8 +22,10 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
@@ -31,6 +33,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Displays and manages the signed-in user's grocery list.
+ */
 public class GroceriesFragment
         extends Fragment
         implements GroceryAdapter.GroceryListener {
@@ -51,15 +56,13 @@ public class GroceriesFragment
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore database;
 
-    /**
-     * Required empty constructor.
-     */
+    private ListenerRegistration groceryListener;
+
+    private boolean isAddingItem = false;
+
     public GroceriesFragment() {
     }
 
-    /**
-     * Creates the grocery list screen.
-     */
     @Nullable
     @Override
     public View onCreateView(
@@ -125,28 +128,25 @@ public class GroceriesFragment
         recyclerView.setAdapter(adapter);
 
         buttonAdd.setOnClickListener(
-                clickedView -> addGroceryItem()
+                view1 -> addGroceryItem()
         );
 
-        buttonClearChecked
-                .setOnClickListener(
-                        clickedView ->
-                                clearCheckedItems()
-                );
+        buttonClearChecked.setOnClickListener(
+                view12 -> clearCheckedItems()
+        );
 
-        inputGrocery
-                .setOnEditorActionListener(
-                        (v, actionId, event) -> {
+        inputGrocery.setOnEditorActionListener(
+                (textView, actionId, event) -> {
 
-                            if (actionId
-                                    == EditorInfo.IME_ACTION_DONE) {
+                    if (actionId
+                            == EditorInfo.IME_ACTION_DONE) {
 
-                                addGroceryItem();
-                                return true;
-                            }
+                        addGroceryItem();
+                        return true;
+                    }
 
-                            return false;
-                        });
+                    return false;
+                });
 
         listenForGroceries();
 
@@ -154,9 +154,13 @@ public class GroceriesFragment
     }
 
     /**
-     * Adds a grocery item to Firestore.
+     * Adds one grocery item to Firestore.
      */
     private void addGroceryItem() {
+
+        if (isAddingItem) {
+            return;
+        }
 
         if (inputGrocery.getText() == null) {
             return;
@@ -177,6 +181,24 @@ public class GroceriesFragment
             return;
         }
 
+        /*
+         * Prevent exact duplicate names.
+         */
+        for (GroceryItem existing
+                : groceryItems) {
+
+            if (existing.getName() != null
+                    && existing.getName()
+                    .equalsIgnoreCase(name)) {
+
+                showToast(
+                        "That item is already on your list."
+                );
+
+                return;
+            }
+        }
+
         FirebaseUser user =
                 firebaseAuth.getCurrentUser();
 
@@ -188,6 +210,9 @@ public class GroceriesFragment
 
             return;
         }
+
+        isAddingItem = true;
+        buttonAdd.setEnabled(false);
 
         String itemId =
                 database
@@ -228,9 +253,19 @@ public class GroceriesFragment
                 .set(grocery)
                 .addOnSuccessListener(unused -> {
 
+                    /*
+                     * Do NOT manually add the item to groceryItems here.
+                     * The Firestore snapshot listener does that.
+                     */
                     inputGrocery.setText("");
+
+                    isAddingItem = false;
+                    buttonAdd.setEnabled(true);
                 })
                 .addOnFailureListener(error -> {
+
+                    isAddingItem = false;
+                    buttonAdd.setEnabled(true);
 
                     showToast(
                             "Unable to add item."
@@ -239,7 +274,7 @@ public class GroceriesFragment
     }
 
     /**
-     * Listens for real-time grocery list updates.
+     * Listens for grocery list changes from Firestore.
      */
     private void listenForGroceries() {
 
@@ -250,65 +285,85 @@ public class GroceriesFragment
             return;
         }
 
+        if (groceryListener != null) {
+            groceryListener.remove();
+        }
+
         progressBar.setVisibility(
                 View.VISIBLE
         );
 
-        database
-                .collection("users")
-                .document(user.getUid())
-                .collection("groceries")
-                .orderBy(
-                        "createdAt",
-                        Query.Direction.ASCENDING
-                )
-                .addSnapshotListener(
-                        (value, error) -> {
+        groceryListener =
+                database
+                        .collection("users")
+                        .document(user.getUid())
+                        .collection("groceries")
+                        .orderBy(
+                                "createdAt",
+                                Query.Direction.ASCENDING
+                        )
+                        .addSnapshotListener(
+                                (value, error) -> {
 
-                            progressBar.setVisibility(
-                                    View.GONE
-                            );
+                                    if (!isAdded()) {
+                                        return;
+                                    }
 
-                            if (error != null) {
+                                    progressBar.setVisibility(
+                                            View.GONE
+                                    );
 
-                                showToast(
-                                        "Unable to load groceries."
-                                );
+                                    if (error != null) {
 
-                                return;
-                            }
-
-                            groceryItems.clear();
-
-                            if (value != null) {
-
-                                for (var document
-                                        : value.getDocuments()) {
-
-                                    GroceryItem item =
-                                            document.toObject(
-                                                    GroceryItem.class
-                                            );
-
-                                    if (item != null) {
-
-                                        item.setId(
-                                                document.getId()
+                                        showToast(
+                                                "Unable to load groceries."
                                         );
 
-                                        groceryItems.add(item);
+                                        return;
                                     }
-                                }
-                            }
 
-                            adapter.notifyDataSetChanged();
+                                    groceryItems.clear();
 
-                            updateEmptyState();
-                        });
+                                    if (value != null) {
+
+                                        for (DocumentSnapshot document
+                                                : value.getDocuments()) {
+
+                                            String id =
+                                                    document.getId();
+
+                                            String name =
+                                                    document.getString(
+                                                            "name"
+                                                    );
+
+                                            Boolean checked =
+                                                    document.getBoolean(
+                                                            "checked"
+                                                    );
+
+                                            GroceryItem item =
+                                                    new GroceryItem(
+                                                            id,
+                                                            name == null
+                                                                    ? ""
+                                                                    : name,
+                                                            checked != null
+                                                                    && checked
+                                                    );
+
+                                            groceryItems.add(item);
+                                        }
+                                    }
+
+                                    adapter.notifyDataSetChanged();
+
+                                    updateEmptyState();
+                                });
     }
 
     /**
-     * Updates a grocery item's checked state.
+     * Updates a grocery item's checked status.
      */
     @Override
     public void onCheckedChanged(
@@ -336,7 +391,7 @@ public class GroceriesFragment
     }
 
     /**
-     * Deletes a grocery item.
+     * Deletes one grocery item.
      */
     @Override
     public void onDeleteClicked(
@@ -366,7 +421,7 @@ public class GroceriesFragment
     }
 
     /**
-     * Deletes every checked grocery item.
+     * Deletes all checked grocery items.
      */
     private void clearCheckedItems() {
 
@@ -377,7 +432,7 @@ public class GroceriesFragment
             return;
         }
 
-        boolean foundCheckedItem = false;
+        boolean foundChecked = false;
 
         for (GroceryItem item
                 : new ArrayList<>(groceryItems)) {
@@ -385,7 +440,7 @@ public class GroceriesFragment
             if (item.isChecked()
                     && item.getId() != null) {
 
-                foundCheckedItem = true;
+                foundChecked = true;
 
                 database
                         .collection("users")
@@ -396,7 +451,7 @@ public class GroceriesFragment
             }
         }
 
-        if (!foundCheckedItem) {
+        if (!foundChecked) {
 
             showToast(
                     "No checked items to clear."
@@ -405,25 +460,42 @@ public class GroceriesFragment
     }
 
     /**
-     * Shows or hides the empty-list message.
+     * Updates the empty-list message.
      */
     private void updateEmptyState() {
 
+        boolean empty =
+                groceryItems.isEmpty();
+
         textEmpty.setVisibility(
-                groceryItems.isEmpty()
+                empty
                         ? View.VISIBLE
                         : View.GONE
         );
 
         recyclerView.setVisibility(
-                groceryItems.isEmpty()
+                empty
                         ? View.GONE
                         : View.VISIBLE
         );
     }
 
     /**
-     * Displays a Toast message.
+     * Removes the Firestore listener when the view closes.
+     */
+    @Override
+    public void onDestroyView() {
+
+        super.onDestroyView();
+
+        if (groceryListener != null) {
+            groceryListener.remove();
+            groceryListener = null;
+        }
+    }
+
+    /**
+     * Shows a Toast message.
      */
     private void showToast(String message) {
 
