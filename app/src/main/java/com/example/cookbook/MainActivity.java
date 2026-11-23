@@ -129,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
         // replace) keeps each page alive, with its scroll position and selections.
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        Fragment recipeDetail = fragmentManager.findFragmentByTag("recipe_detail");
+
+        if (recipeDetail != null) transaction.remove(recipeDetail);
         String visibleTag = tagForPage(pageId);
         for (String tag : new String[]{TAG_COOKBOOK, TAG_GROCERIES, TAG_PLANNER, TAG_PROFILE, TAG_MY_PANTRY}) {
             Fragment page = fragmentManager.findFragmentByTag(tag);
@@ -180,4 +183,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return TAG_COOKBOOK;
     }
+
+
 }

@@ -47,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:text="Your kitchen"
                     android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/lora_font"
                     android:textSize="46sp"
                     android:textStyle="bold"/>
                 <!--Subtitle-->
@@ -233,6 +234,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/the_way_you_cook"
+            android:fontFamily="@font/lora_font"
+            android:textStyle="bold"
             android:paddingTop="20dp"
             android:paddingBottom="10dp"/>
 <!-- First Row-->
@@ -354,6 +357,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="MAKE YOURSELF AT HOME"
+            android:fontFamily="@font/lora_font"
+            android:textStyle="bold"
             android:paddingTop="20dp"
             android:paddingBottom="10dp"/>
 <!--Meal Reminders-->
