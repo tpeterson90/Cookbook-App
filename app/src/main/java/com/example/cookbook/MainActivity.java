@@ -2,6 +2,8 @@ package com.example.cookbook;
 
 import android.os.Bundle;
 import android.view.View;
+import android.content.Intent;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -47,6 +49,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseAuth firebaseAuth =
+                FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() == null) {
+
+            Intent intent =
+                    new Intent(
+                            MainActivity.this,
+                            SignIn.class
+                    );
+
+            intent.addFlags(
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+                            | Intent.FLAG_ACTIVITY_CLEAR_TASK
+            );
+
+            startActivity(intent);
+            finish();
+            return;
+        }
         WindowCompat.enableEdgeToEdge(getWindow());
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

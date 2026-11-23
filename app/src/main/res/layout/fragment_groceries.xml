@@ -1,19 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/grocery_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.GroceriesFragment">
+    android:background="@color/colorBackground"
+    android:padding="20dp">
 
     <TextView
+        android:id="@+id/textGroceryHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Groceries"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="My Grocery List"
+        android:textColor="@color/colorText"
+        android:textSize="28sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textGrocerySubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Add what you need for your next meal."
+        android:textColor="@color/colorSecondary"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textGroceryHeading" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutGroceryInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="14dp"
+        android:hint="Grocery item"
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonAddGrocery"
+        app:layout_constraintTop_toBottomOf="@id/textGrocerySubtitle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputGrocery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAddGrocery"
+        android:layout_width="64dp"
+        android:layout_height="56dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/colorPrimary"
+        app:cornerRadius="14dp"
+        app:layout_constraintTop_toTopOf="@id/layoutGroceryInput"
+        app:layout_constraintBottom_toBottomOf="@id/layoutGroceryInput"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressGroceries"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/layoutGroceryInput"
+        app:layout_constraintBottom_toTopOf="@id/buttonClearChecked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textEmptyGroceries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your grocery list is empty.\nAdd something above."
+        android:textAlignment="center"
+        android:textColor="@color/colorSecondary"
+        android:textSize="17sp"
+        app:layout_constraintTop_toBottomOf="@id/layoutGroceryInput"
+        app:layout_constraintBottom_toTopOf="@id/buttonClearChecked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerGroceries"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/layoutGroceryInput"
+        app:layout_constraintBottom_toTopOf="@id/buttonClearChecked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonClearChecked"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:text="Clear Checked"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/colorPrimary"
+        app:cornerRadius="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
